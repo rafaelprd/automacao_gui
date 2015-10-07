@@ -1,0 +1,246 @@
+<html>
+	<head>
+		<title>GUI</title>
+		
+		<script type="text/javascript" src="./scripts/GUI.js"></script>
+		<script type="text/javascript" src="./scripts/area.js"></script>
+		<script type="text/javascript" src="./scripts/objeto.js"></script>
+		<script type="text/javascript" src="./scripts/menu.js"></script>
+		<script type="text/javascript">	
+					
+			window.onload = function() {
+				var canvas = document.getElementById("tela");
+				
+				var sala = new Area("Sala",[
+				 //{x:450,y:200}
+				 {x:550,y:350}
+				,{x:550,y:600}
+				,{x:750,y:600}
+				,{x:750,y:400}
+				,{x:900,y:400}
+				,{x:900,y:350}]);
+				cozinha = new Area("Cozinha",[
+				 {x:650,y:200}
+				,{x:650,y:350}
+				,{x:800,y:350}
+				,{x:800,y:200}]);
+				quarto = new Area("Quarto 1",[
+				 {x:750,y:400}
+				,{x:750,y:600}
+				,{x:900,y:600}
+				,{x:900,y:400}]);
+				quarto2 = new Area("Quarto 2",[
+				 {x:800,y:200}
+				,{x:800,y:350}
+				,{x:1000,y:350}
+				,{x:1000,y:200}]);
+				banheiro = new Area("Banheiro",[
+				 {x:900,y:350}
+				,{x:900,y:500}
+				,{x:1000,y:500}
+				,{x:1000,y:350}]);
+				
+				areaExterna = new Area("Area Externa",[
+				 {x:400,y:150}
+				,{x:400,y:650}
+				,{x:1050,y:650}
+				,{x:1050,y:150}]);
+				areaExterna.lineDotted = true;
+				areaExterna.preencher = false;
+				
+				/**
+				 * Area externa
+				 */
+				var aeL1 = new Lampada();
+					aeL1.nome = "Lamp. Garagem";
+					aeL1.x = 120;
+					aeL1.y = 70;
+					aeL1.w = 50;
+					aeL1.h = 50;
+				aeL1.onclick = function(e) {
+					console.log(this.nome)
+					e.estado = !e.estado;
+					
+					return e.estado;
+				}
+				
+				var aeL2 = Object.create(aeL1);
+					aeL2.nome = "Lamp. Jardim 1";
+					aeL2.x = 40;
+					aeL2.y = 300;
+					aeL2.estado=true;
+				
+				var aeL3 = Object.create(aeL1);
+					aeL3.nome = "Lamp. Jardim 2";
+					aeL3.x = 550;
+					aeL3.y = 400;
+					aeL3.estado=true;
+				
+				var sensorPresenca = new Sensor(1); // 0 - Temperatura; 1 - Presença
+					sensorPresenca.nome = "Presenca";
+					sensorPresenca.valor = "Vazio";
+					sensorPresenca.x = 50;
+					sensorPresenca.y = 70;
+					sensorPresenca.estadoArray = [];
+					sensorPresenca.addState(true, document.getElementById("sensor_presenca"));
+					
+				areaExterna.addObj(aeL1);
+				areaExterna.addObj(aeL2);
+				areaExterna.addObj(aeL3);
+				areaExterna.addObj(sensorPresenca);
+				////////////////////////////////////////////////////////////////////////////
+				
+				/**
+				 * Sala
+				 **/
+				var sL1 = new Lampada();
+					sL1.nome = "Lampada 1";
+					sL1.x = 75;
+					sL1.y = 95;
+					sL1.w = 50;
+					sL1.h = 50;
+				sL1.onclick = function(e) {
+					e.estado = !e.estado;
+					
+					return e.estado;
+				}
+				
+				var termSala = new Sensor(0); // Temperatura sala
+					termSala.nome = "Temperatura";
+					termSala.valor = "21";
+					termSala.x = 10;
+					termSala.y = 160;
+				
+				sala.addObj(sL1);
+				sala.addObj(termSala);
+				////////////////////////////////////////////////////////////////////////////
+				
+				/**
+				 * Quartos
+				 **/
+				var qL1 = new Lampada();
+					qL1.nome = "Lampada 1";
+					qL1.x = 50;
+					qL1.y = 70;
+					qL1.w = 50;
+					qL1.h = 50;
+				qL1.onclick = function(e) {
+					e.estado = !e.estado;
+					
+					return e.estado;
+				}
+				quarto.addObj(qL1);
+				
+				var q2L1 = new Lampada();
+					q2L1.nome = "Lampada 1";
+					q2L1.x = 70;
+					q2L1.y = 50;
+					q2L1.w = 50;
+					q2L1.h = 50;
+				q2L1.onclick = function(e) {
+					e.estado = !e.estado;
+					
+					return e.estado;
+				}
+				quarto2.addObj(q2L1);
+				////////////////////////////////////////////////////////////////////////////
+				
+				/**
+				 * Cozinha
+				 **/
+				 var cL1 = new Lampada();
+					 cL1.nome = "Lampada 1";
+					 cL1.x = 50;
+					 cL1.y = 50;
+					 cL1.w = 50;
+					 cL1.h = 50;
+				cL1.onclick = function(e) {
+					e.estado = !e.estado;
+					
+					return e.estado;
+				}
+				cozinha.addObj(cL1);
+				////////////////////////////////////////////////////////////////////////////
+				
+				/**
+				 * Banheiro
+				 **/
+				 var bL1 = new Lampada();
+					 bL1.nome = "Lampada 1";
+					 bL1.x = 25;
+					 bL1.y = 55;
+					 bL1.w = 50;
+					 bL1.h = 50;
+				bL1.onclick = function(e) {
+					e.estado = !e.estado;
+					
+					return e.estado;
+				}
+				banheiro.addObj(bL1);
+				////////////////////////////////////////////////////////////////////////////
+				
+				
+				var mc = new ManipulaCanvas(canvas);
+					mc.addShape(areaExterna);
+					mc.addShape(sala);
+					mc.addShape(cozinha);
+					mc.addShape(quarto);
+					mc.addShape(quarto2);
+					mc.addShape(banheiro);
+				
+				//*
+				setInterval(function(){
+					//aeL1.setEstado(!aeL1.estado);
+					var sV = parseInt(termSala.valor);
+					(sV>23)?sV-=3:sV++;
+					termSala.setValor(sV.toString());
+					mc.redraw = true;
+				},2000);
+				//*/
+			};
+			
+		</script>
+		<style type="text/css">
+			@font-face {
+				font-family: SketchBlock;
+				src: url('./Sketch_Block.ttf');
+			}
+
+			img {display:none}
+			
+			#menu h1 {
+				color: white;
+				font-family: Helvetica;
+				margin-left: 5%;
+			}
+			
+			#menu ul li {
+				margin-left: 10%;
+			}
+			
+			#content_canvas {
+				border: 1px solid white;
+				overflow: auto;
+				font-family: SketchBlock;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div id="content_canvas">
+			<canvas id="tela" width="1200px" height="800px">
+				Seu browser não suporta canvas.
+			</canvas>
+		</div>
+		
+		<img id="bg_blueprint" src="./imgs/blueprint_bg.png" alt=""/>
+		<img id="lampada_acesa" src="./imgs/lampada_acesa.png" alt=""/>
+		<img id="lampada_apagada" src="./imgs/lampada_apagada.png" alt=""/>
+		<img id="switch_on" src="./imgs/switch_on.png" alt=""/>
+		<img id="switch_off" src="./imgs/switch_off.png" alt=""/>
+		<img id="line" src="./imgs/line.png" alt=""/>
+		<img id="termometro" src="./imgs/termometro.png" alt=""/>
+		<img id="sensor_presenca" src="./imgs/sensor_presenca.png" alt=""/>
+		<img id="textura_riscos" src="./imgs/textura_riscos.png" alt=""/>
+	</body>
+</html>
