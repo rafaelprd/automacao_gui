@@ -1,1 +1,0 @@
- select r.*,rt.nota nota_tiulo from resultado r inner join resutado_titulo rt on r.cod = rt.cod;
